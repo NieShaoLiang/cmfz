@@ -2,8 +2,6 @@ package com.baizhi.controller;
 
 import com.baizhi.entity.Banner;
 import com.baizhi.service.BannerService;
-import org.apache.commons.io.FileUtils;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -70,7 +68,7 @@ public class BannerController {
         String uuid = UUID.randomUUID().toString();
         String newName = uuid+oldName.substring(oldName.lastIndexOf("."));
 
-        System.out.println(oldName);
+        //System.out.println(oldName);
         file.transferTo(new File("E:/服务器/"+newName));
         banner.setImgPath(newName);
 
