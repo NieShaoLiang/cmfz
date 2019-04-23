@@ -16,22 +16,37 @@
 	
 		$(function(){
 			//点击更换验证码：
-			$("#captchaImage").click(function(){//点击更换验证码
-				alert("自己做");
+			$("#changeImage").click(function(){//点击更换验证码
+				$("#changeImage").prop("src","${pageContext.request.contextPath}/user/getImage?time="+new Date().getTime())
 			});
 			
 			//  form 表单提交
-			$("#loginForm").bind("submit",function(){
-				alert("自己做");
-				return false;
-			});
-		});
+			$("#submit").click(function () {
+                $.ajax({
+                    type:"get",
+                    data:"name="+$("#name").val()+"&password="+$("#pwd").val()+"&code="+$("#code").val(),
+					url:"${pageContext.request.contextPath}/user/login",
+                    dataType:"json",
+                    success:function (data) {
+                        console.log(data)
+                        if(data.isOk){
+                            alert(data.info)
+                            location.href = "${pageContext.request.contextPath}/main/main1.jsp"
+                        }else {
+                            alert(data.info)
+                        }
+                    }
+                })
+            });
+		})
+
+
 	</script>
 </head>
 <body>
-	
 		<div class="login">
-			<form id="loginForm" action="../back/index.html" method="post" >
+<%--location.href = "${pageContext.request.contextPath}/main/mian1.jsp"--%>
+			<form id="loginForm"  method="post" >
 				
 				<table>
 					<tbody>
@@ -43,7 +58,7 @@
 								用户名:
 							</th>
 							<td>
-								<input type="text"  name="user.name" class="text" value="xxx" maxlength="20"/>
+								<input id="name" type="text"  name="name" class="text" placeholder="输入用户名" maxlength="20"/>
 							</td>
 					  </tr>
 					  <tr>
@@ -51,7 +66,7 @@
 								密&nbsp;&nbsp;&nbsp;码:
 							</th>
 							<td>
-								<input type="password" name="user.password" class="text" value="xxx" maxlength="20" autocomplete="off"/>
+								<input id="pwd" type="password" name="password" class="text" placeholder="输入密码" maxlength="20" autocomplete="off"/>
 							</td>
 					  </tr>
 					
@@ -59,8 +74,8 @@
 							<td>&nbsp;</td>
 							<th>验证码:</th>
 							<td>
-								<input type="text" id="enCode" name="enCode" class="text captcha" maxlength="4" autocomplete="off"/>
-								<img id="captchaImage" class="captchaImage" src="img/captcha.jpg" title="点击更换验证码"/>
+								<input type="text" id="code" name="code" class="text captcha" maxlength="4" autocomplete="off"/>
+								<img id="changeImage" class="captchaImage" style="width: 100px;height: 30px" src="${pageContext.request.contextPath}/user/getImage" title="点击更换验证码"/>
 							</td>
 						</tr>					
 					<tr>
@@ -75,10 +90,12 @@
 						<td>&nbsp;</td>
 						<th>&nbsp;</th>
 						<td>
-							<input type="button" class="homeButton" value="" onclick="location.href='/'"><input type="submit" class="loginButton" value="登录">
+							<input type="button" class="homeButton"><input id="submit" type="button" class="loginButton" value="登录">
 						</td>
 					</tr>
-				</tbody></table>
+				</tbody>
+				</table>
+			</form>
 				<div class="powered">COPYRIGHT © 2008-2017.</div>
 				<div class="link">
 					<a href="http://www.chimingfowang.com/">持名佛网首页</a> |
@@ -87,7 +104,7 @@
 					<a href="">联系我们</a> |
 					<a href="">授权查询</a>
 				</div>
-			</form>
+
 		</div>
 </body>
 </html>

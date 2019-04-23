@@ -24,6 +24,7 @@
             handler: function () {
                 //alert('帮助按钮')
                 $('#dg_article').edatagrid('destroyRow');
+                $("#dg_article").edatagrid("reload")
 
             }
         }, '-', {
@@ -63,7 +64,7 @@
                         options: {required: true}
                     }
                 },
-                {field: 'createDate', title: '日期', width: 100}
+                {field: 'date', title: '日期', width: 100}
             ]],
             toolbar: tb,
 
@@ -86,15 +87,16 @@
 
     function addArticle() {
         $('#ff').form('submit', {
-            url: '${pageContext.request.contextPath}/banner/insert',
+            url: '${pageContext.request.contextPath}/article/insert',
             onSubmit: function () {
 
             },
             success: function (data) {
                 alert(data)
-                $('#dd_banner').dialog({
+                $('#dd_article').dialog({
                     closed:true
                 });
+                $("#dg_article").edatagrid("reload")
             }
         });
 

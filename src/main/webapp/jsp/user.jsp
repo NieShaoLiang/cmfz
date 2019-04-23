@@ -1,4 +1,7 @@
 <%@page contentType="text/html; UTF-8" pageEncoding="UTF-8" isELIgnored="false" language="java" %>
+<script src="${pageContext.request.contextPath}/js/distpicker/distpicker.data.js"></script>
+<script src="${pageContext.request.contextPath}/js/distpicker/distpicker.js"></script>
+<script src="${pageContext.request.contextPath}/js/distpicker/main.js"></script>
 <script>
     $(function () {
         var tb = [{
@@ -104,7 +107,7 @@
 
 </script>
 <table id="dg_user"></table>
-<div id="dd_user" class="easyui-dialog" title="添加" style="width:400px;height:200px;"
+<div id="dd_user" class="easyui-dialog" title="添加" style="width:400px;height:300px;"
      data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true,
             buttons:[{
 				text:'保存',
@@ -117,25 +120,41 @@
 			}]">
 
     <form id="ff" method="post" enctype="multipart/form-data">
-        <div>
+        <div style="margin: 5px">
             <label for="name">用户名:</label>
             <input id="name" class="easyui-validatebox" type="text" name="name" data-options="required:true"/>
         </div>
-        <div>
+        <div style="margin: 5px">
             <label for="name">密码:</label>
             <input id="password" class="easyui-validatebox" type="text" name="password" data-options="required:true"/>
         </div>
-        <div>
+        <div style="margin: 5px">
             <label for="name">法号:</label>
             <input id="dharma" class="easyui-validatebox" type="text" name="dharma" data-options="required:true"/>
         </div>
-        <div>
+        <div style="margin: 5px">
             <label for="name">手机号:</label>
             <input id="phone" class="easyui-validatebox" type="text" name="phone" data-options="required:true"/>
         </div>
-        <div>
+        <div style="margin: 5px">
+            <label for="name">性别:</label>&nbsp;&nbsp;
+            女<input id="sex" class="easyui-validatebox" type="radio" name="sex" value="0" data-options="required:true"/>&nbsp;
+            男<input id="sex" class="easyui-validatebox" type="radio" name="sex" value="1" data-options="required:true"/>
+        </div>
+        <div style="margin: 5px">
             <label for="name">上传头像:</label>
-            <input class="easyui-filebox" name="file" id="file" style="width:150px">
+            <input class="easyui-filebox" name="file" id="file" style="width:170px">
+        </div>
+        <%--使用插件获取全国省市--%>
+        <div data-toggle="distpicker">
+            <div style="margin: 5px">
+                <label for="province">省份:</label>
+                <select class="form-control" name="province" id="province"></select>
+            </div>
+            <div style="margin: 5px">
+                <label for="city">城市:</label>
+                <select class="form-control" name="city" id="city"></select>
+            </div>
         </div>
 
     </form>

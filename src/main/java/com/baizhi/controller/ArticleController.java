@@ -22,14 +22,15 @@ public class ArticleController {
 
     @RequestMapping("insert")
     public Map insert(Article article, MultipartFile file) throws IOException {
-        article.setStatus(0);//默认为0
-        article.setDate(new Date());//日期为当前日期
 
         String oldName = file.getOriginalFilename();
         String uuid = UUID.randomUUID().toString();
         String newName = uuid+oldName.substring(oldName.lastIndexOf("."));
         file.transferTo(new File("E:/服务器/"+newName));
         article.setImgPath(newName);
+        article.setStatus(0);//默认为0
+        article.setDate(new Date());//日期为当前日期
+
 
         System.out.println(article);
         Map map = new HashMap();

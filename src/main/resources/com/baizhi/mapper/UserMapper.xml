@@ -26,14 +26,5 @@
         select * from user where name=#{name}
     </select>
 
-    <select id="selectOneWeekCount" resultType="com.baizhi.entity.User">
-        select count(*) form user where datediff(now(),create_date)&lt;7
-    </select>
-
-    <select id="selectByProvince" resultType="com.baizhi.entity.User">
-        select count(*) count,province form user group by province
-    </select>
-
-
 
 </mapper>

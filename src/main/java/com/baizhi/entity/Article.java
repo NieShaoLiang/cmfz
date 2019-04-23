@@ -1,8 +1,10 @@
 package com.baizhi.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import tk.mybatis.mapper.annotation.KeySql;
 
 import javax.persistence.Column;
@@ -24,6 +26,8 @@ public class Article {
     private String content;
 
     @Column(name = "publish_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH-mm-ss")
+    @JSONField(format = "yyyy-MM-dd HH-mm-ss")
     private Date date;
 
     private Integer status;

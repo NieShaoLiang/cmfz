@@ -10,10 +10,11 @@ public interface UserService {
     //分页
     Map selectAll(int page, int rows);
 
+    //注册前判断是否存在该用户
     User selectByName(String name);
-
+    //登录
     User selectByNamePwd(String name,String password);
-
+    //添加用户
     void insert(User user);
 
     void delete(Integer id);

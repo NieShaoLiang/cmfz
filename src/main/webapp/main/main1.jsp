@@ -8,6 +8,9 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/themes/black/easyui.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/themes/IconExtension.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/themes/icon.css">
+
+<%--    <link href="http://www.jq22.com/jquery/bootstrap-3.3.4.css" rel="stylesheet">--%>
+
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/datagrid-detailview.js"></script>
@@ -15,6 +18,10 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/echarts.min.js"></script>
 <script src="http://cdn-hangzhou.goeasy.io/goeasy.js"></script>
+<script src="${pageContext.request.contextPath}/js/distpicker/distpicker.data.js"></script>
+<script src="${pageContext.request.contextPath}/js/distpicker/distpicker.js"></script>
+<script src="${pageContext.request.contextPath}/js/distpicker/main.js"></script>
+
 <script type="text/javascript">
 	<!--菜单处理-->
     $(function () {

@@ -1,16 +1,21 @@
 package com.baizhi.controller;
 
+import cn.hutool.captcha.CaptchaUtil;
+import cn.hutool.captcha.LineCaptcha;
 import com.alibaba.fastjson.JSON;
 import com.baizhi.entity.User;
 import com.baizhi.entity.UserDTO;
 import com.baizhi.service.UserService;
 import io.goeasy.GoEasy;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -34,15 +39,23 @@ public class UserController {
         String uuid = UUID.randomUUID().toString();
         String newName = uuid+oldName.substring(oldName.lastIndexOf("."));
 
+        //密码使用md5加密并且加盐操作
+        String p1 = user.getPassword();//获取用户输入的密码
+        String salt = UUID.randomUUID().toString().replace("-", "").substring(0, 4);//获取盐值
+        String password = DigestUtils.md5Hex(p1+salt);//MD5加密
+        user.setPassword(password);
+        user.setSalt(salt);
+
         System.out.println(oldName);
         file.transferTo(new File("E:/服务器/"+newName));
         user.setHeadImg(newName);
         user.setStatus(0);
-        user.setSex(0);
-        user.setProvince("新疆");
+        //user.setSex(0);
+        //user.setProvince("新疆");
         user.setCreateDate(new Date());
         //System.out.println(user);
 
+        //使用GoEasy实现socket实时通信
         Map map = new HashMap();
         try {
             userService.insert(user);
@@ -123,6 +136,51 @@ public class UserController {
             map.put("isOk",false);
             e.printStackTrace();
         }
+        return map;
+    }
+
+
+    //登录
+    @RequestMapping("login")
+    public Map login(String name,String password,String code,HttpSession session){
+        System.out.println(name+"======="+password+"========"+code);
+        Map map = new HashMap();
+        String code1 = (String) session.getAttribute("code");
+        System.out.println(code1);
+        if (!code.equalsIgnoreCase(code1)) {
+            map.put("info","验证码错误!");
+            map.put("isOk",false);
+            return map;
+        }
+        User user = userService.selectByNamePwd(name, password);
+        if(user==null){
+            map.put("isOk",false);
+            map.put("info","用户名或密码错误!");
+            return map;
+        }else {
+            map.put("isOk",true);
+            map.put("info","登陆成功!");
+            session.setAttribute("user",user);
+            return map;
+        }
+    }
+
+    //获取图形验证码
+    @RequestMapping("getImage")
+    public void getImage(HttpSession session, HttpServletResponse response) throws IOException {
+        //定义图形验证码的长和宽
+        LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(200, 100,4,20);
+        //获取验证码存入session
+        session.setAttribute("code",lineCaptcha.getCode());
+        //图形验证码通过流的形式响应到页面
+        ServletOutputStream os = response.getOutputStream();
+        lineCaptcha.write(os);
+    }
+
+    //注册
+    @RequestMapping("reg")
+    public Map reg(){
+        Map map = new HashMap();
         return map;
     }
 

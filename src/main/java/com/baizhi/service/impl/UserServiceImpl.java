@@ -7,13 +7,11 @@ import com.baizhi.entity.UserDTO;
 import com.baizhi.service.UserService;
 import com.github.pagehelper.PageHelper;
 import io.goeasy.GoEasy;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.util.GregorianCalendar.BC;
 
@@ -45,7 +43,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User selectByNamePwd(String name, String password) {
-        return userDao.selectByNamePwd(name,password);
+
+        User user = userDao.selectByName(name);
+        if(user==null) return null;
+        String salt = user.getSalt();//获取盐值
+
+        String pwd = DigestUtils.md5Hex(password+salt);//获取加密后的密文为数据库中真实的密码
+
+        System.out.println(name+"====="+pwd);
+        return userDao.selectByNamePwd(name,pwd);
     }
 
     @Override
