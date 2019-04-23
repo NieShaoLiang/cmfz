@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.UserDTODao">
+    <resultMap id="userMap" type="com.baizhi.entity.UserDTO">
+        <result property="province" column="name"/>
+        <result property="count" column="value"/>
+    </resultMap>
+
+
+    <select id="selectActiveNumber" resultType="java.lang.Integer">
+        select count(*) count from user where datediff(now(),create_date)&lt;#{type}*7
+    </select>
+
+    <select id="selectByProvince1" resultType="com.baizhi.entity.UserDTO">
+        select count(*) value,t.province name from (
+                select * from user where sex=1
+            )t GROUP BY province
+    </select>
+    <select id="selectByProvince0" resultType="com.baizhi.entity.UserDTO">
+        select count(*) value,t.province name from (
+              select * from user where sex=0
+            )t GROUP BY province
+    </select>
+
+
+</mapper>
