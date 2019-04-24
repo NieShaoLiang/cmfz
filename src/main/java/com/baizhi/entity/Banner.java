@@ -31,6 +31,6 @@ public class Banner implements Serializable {
     @Excel(name = "创建日期",format = "yyyy年MM月dd日 HH时mm分ss秒",width = 30)
     private Date createDate;
     @ExcelIgnore
-    private Integer status;
+    private Integer status;//状态是1为展示，0为默认状态，不展示
 
 }

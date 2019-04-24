@@ -41,7 +41,6 @@ public class CmfzNslApplicationTests {
     @Autowired
     private UserDTODao userDTODao;
 
-
     @Test
     public void contextLoads() {
 
@@ -53,14 +52,11 @@ public class CmfzNslApplicationTests {
 
     }
 
-
     @Test
     public void t2() {
         Map map = userService.selectActiveNumber();
         System.out.println(map);
     }
-
-
 
     @Test
     public void t3() {

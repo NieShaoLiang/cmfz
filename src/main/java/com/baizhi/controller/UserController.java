@@ -3,11 +3,12 @@ package com.baizhi.controller;
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.LineCaptcha;
 import com.alibaba.fastjson.JSON;
+import com.aliyuncs.exceptions.ClientException;
 import com.baizhi.entity.User;
 import com.baizhi.entity.UserDTO;
 import com.baizhi.service.UserService;
+import com.baizhi.util.MsgUtils;
 import io.goeasy.GoEasy;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,22 +39,10 @@ public class UserController {
         String oldName = file.getOriginalFilename();
         String uuid = UUID.randomUUID().toString();
         String newName = uuid+oldName.substring(oldName.lastIndexOf("."));
-
-        //密码使用md5加密并且加盐操作
-        String p1 = user.getPassword();//获取用户输入的密码
-        String salt = UUID.randomUUID().toString().replace("-", "").substring(0, 4);//获取盐值
-        String password = DigestUtils.md5Hex(p1+salt);//MD5加密
-        user.setPassword(password);
-        user.setSalt(salt);
-
-        System.out.println(oldName);
+        //System.out.println(oldName);
         file.transferTo(new File("E:/服务器/"+newName));
         user.setHeadImg(newName);
-        user.setStatus(0);
-        //user.setSex(0);
-        //user.setProvince("新疆");
-        user.setCreateDate(new Date());
-        //System.out.println(user);
+
 
         //使用GoEasy实现socket实时通信
         Map map = new HashMap();
@@ -179,9 +168,28 @@ public class UserController {
 
     //注册
     @RequestMapping("reg")
-    public Map reg(){
+    public Map reg(User user,String code,HttpSession session){
         Map map = new HashMap();
-        return map;
+        String code1 = (String) session.getAttribute("code");
+        if(!code.equalsIgnoreCase(code)){
+            map.put("error","验证码错误");
+            return map;
+        }
+        if (userService.selectByName(user.getName())==null){
+            map.put("error","用户名已存在");
+            return map;
+        }else {
+            userService.insert(user);
+            map.put("info","注册成功");
+            return map;
+        }
+    }
+
+    //发送验证码
+    @RequestMapping("sendMsg")
+    public void sendMsg(String phone,HttpSession session) throws ClientException {
+        int i = MsgUtils.sendMsg(phone,session);
+        System.out.println("===========================================发送验证码："+i);
     }
 
 }

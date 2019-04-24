@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.ChapterDao">
+
+    <resultMap id="chapterMap" type="com.baizhi.entity.Chapter">
+        <result property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="size" column="size"/>
+        <result property="duration" column="duration"/>
+        <result property="publishDate" column="publish_date"/>
+        <result property="albumId" column="album_id"/>
+        <result property="path" column="path"/>
+    </resultMap>
+
+    <select id="selectByAlbumId" resultMap="chapterMap">
+        select * from chapter where album_id=#{albumId}
+    </select>
+
+
+
+</mapper>

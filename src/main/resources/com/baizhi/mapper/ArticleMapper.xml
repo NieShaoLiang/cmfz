@@ -2,7 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.baizhi.dao.ArticleDao">
 
+    <resultMap id="articleMap" type="com.baizhi.entity.Article">
+        <result property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="imgPath" column="img_path"/>
+        <result property="content" column="content"/>
+        <result property="date" column="publish_date"/>
+        <result property="status" column="status"/>
+        <result property="masterId" column="master_id"/>
+    </resultMap>
+
+    <select id="selectByMasterId" resultMap="articleMap">
+        select * from article where master_id = #{masterId}
+    </select>
 
 
+    <select id="selectExceptMasterId" resultMap="articleMap">
+        select * from article where master_id != #{masterId}
+    </select>
 
 </mapper>

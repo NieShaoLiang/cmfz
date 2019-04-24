@@ -56,6 +56,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void insert(User user) {
+
+        //密码使用md5加密并且加盐操作
+        String p1 = user.getPassword();//获取用户输入的密码
+        String salt = UUID.randomUUID().toString().replace("-", "").substring(0, 4);//获取盐值
+        String password = DigestUtils.md5Hex(p1+salt);//MD5加密
+        user.setPassword(password);
+        user.setSalt(salt);
+        user.setCreateDate(new Date());
+        user.setStatus(0);
+
+        System.out.println(user);
         userDao.insert(user);
     }
 

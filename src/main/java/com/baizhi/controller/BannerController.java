@@ -72,7 +72,7 @@ public class BannerController {
         file.transferTo(new File("E:/服务器/"+newName));
         banner.setImgPath(newName);
 
-        System.out.println(banner);
+        //System.out.println(banner);
 
         Map map = new HashMap();
         try {

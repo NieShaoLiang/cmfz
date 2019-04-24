@@ -49,8 +49,6 @@
                 } else {
                     $("#albumId").val(album.id)
                     $('#add_chapter').dialog('open');
-                    //重新加载页面
-                    $("#tt_album").treegrid("reload")
                 }
             }
         }, '-', {
@@ -78,7 +76,7 @@
                 {title:'名字',field:'title',width:180},
                 {field:'size',title:'章节大小',width:60,},
                 {field:'duration',title:'章节时长',width:80}
-        ]]
+             ]]
         });
 /*查看所有专辑 end-----*/
 /*查看专辑详情 start----*/
@@ -106,7 +104,7 @@
                     closed:true
                 });
                 //重新加载页面
-                $("#tt_album").treegrid("load")
+                $("#tt_album").treegrid("reload")
             }
         });
     }
@@ -124,7 +122,7 @@
                     closed:true
                 });
                 //重新加载页面
-                $("#tt_album").treegrid("load")
+                $("#tt_album").treegrid("reload")
             }
         });
     }

@@ -18,13 +18,20 @@
         <result property="masterId" column="master_id"/>
     </resultMap>
 
-    <select id="selectByNamePwd" resultType="com.baizhi.entity.User">
+    <select id="selectByNamePwd" resultMap="userMap">
         select * from user where name=#{name} and password=#{password}
     </select>
 
-    <select id="selectByName" resultType="com.baizhi.entity.User">
+    <select id="selectByName" resultMap="userMap">
         select * from user where name=#{name}
     </select>
 
+    <select id="selectMasterId" resultType="java.lang.Integer">
+        select master_id from user where id=#{id}
+    </select>
+
+    <select id="selectByPhone" resultMap="userMap">
+        select * from user where phone=#{phone}
+    </select>
 
 </mapper>

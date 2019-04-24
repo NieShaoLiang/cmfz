@@ -64,6 +64,7 @@
                         options: {required: true}
                     }
                 },
+                {field: 'masterId', title: '上师编号', width: 100},
                 {field: 'date', title: '日期', width: 100}
             ]],
             toolbar: tb,
