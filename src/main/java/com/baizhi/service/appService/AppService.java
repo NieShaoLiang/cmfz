@@ -142,8 +142,17 @@ public class AppService {
     }
 
     /*获取短信验证码接口*/
+    /* 短信验证码校验接口*/
 
+    /* 获取会员列表*/
+    public Object queryUser(Integer uid){
 
+        if(uid==null){
+            return new Error("参数为空");
+        }else{
+            userService.
+        }
+    }
 
 
 }

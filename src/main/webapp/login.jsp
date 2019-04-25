@@ -34,6 +34,7 @@
                             location.href = "${pageContext.request.contextPath}/main/main1.jsp"
                         }else {
                             alert(data.info)
+							location.reload(true)
                         }
                     }
                 })

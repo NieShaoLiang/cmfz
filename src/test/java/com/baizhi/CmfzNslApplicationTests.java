@@ -67,7 +67,7 @@ public class CmfzNslApplicationTests {
 
     @Test
     public void t4() throws ClientException {
-        int i = MsgUtils.sendMsg();
+        int i = MsgUtils.sendMsg("15515546135");
         System.out.println(i);
     }
 

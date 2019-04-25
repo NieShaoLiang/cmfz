@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Random;
 
 public class MsgUtils {
-    public static int sendMsg(String phone,HttpSession session) throws ClientException {
+    public static int sendMsg(String phone) throws ClientException {
         //设置超时时间-可自行调整
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
         System.setProperty("sun.net.client.defaultReadTimeout", "10000");
@@ -46,12 +46,12 @@ public class MsgUtils {
         //友情提示:如果JSON中需要带换行符,请参照标准的JSON协议对换行符的要求,比如短信内容中包含\r\n的情况在JSON中需要表示成\\r\\n,否则会导致JSON在服务端解析失败
         //生成验证码并存入redis
         Random rd = new Random();
-        String code = "";
+     /*   String code = "";
         for (int i = 0; i <4 ; i++) {
             code=code+rd.nextInt();
-        }
-        session.setAttribute("code",code);
-        request.setTemplateParam("{\"name\":\"XSH\", \"code\":code}");//发送验证码
+        }*/
+
+        request.setTemplateParam("{\"code\":\"888888\"}");//发送验证码
         //可选-上行短信扩展码(扩展码字段控制在7位或以下，无特殊需求用户请忽略此字段)
         //request.setSmsUpExtendCode("90997");
         //可选:outId为提供给业务方扩展字段,最终在短信回执消息中将此值带回给调用者
