@@ -146,11 +146,11 @@ public class AppService {
 
     /* 获取会员列表*/
     public Object queryUser(Integer uid){
-
         if(uid==null){
             return new Error("参数为空");
         }else{
-            userService.
+            User user = userDao.selectByPrimaryKey(uid);
+            return user;
         }
     }
 
