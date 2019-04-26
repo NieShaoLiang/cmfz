@@ -90,6 +90,7 @@
             },
             success: function (data) {
                 alert(data)
+                $("#ff").form("clear")
                 $('#dd_master').dialog({
                     closed:true
                 });

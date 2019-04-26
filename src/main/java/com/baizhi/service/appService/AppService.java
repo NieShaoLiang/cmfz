@@ -35,7 +35,7 @@ public class AppService {
         }else {
             if (type.equals("all")){
                 Map<String,Object> map = new HashMap<>();
-                map.put("banner",bannerDao.selectByStatus());//添加轮播图集合(状态是1的)
+                map.put("header",bannerDao.selectByStatus());//添加轮播图集合(状态是1的)
                 map.put("album",albumDao.selectNew());//添加专辑集合
                 map.put("article",articleDao.selectAll());//添加文章集合
                 return map;

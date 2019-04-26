@@ -18,11 +18,12 @@
     goEasy.subscribe({
         channel: "nsl",
         onMessage: function (message) {
-            console.log(message.content)
+            //console.log(message.content)
             var t = message.content
-            alert(t)
+            //alert(t)
             var content = JSON.parse(t);
-
+            console.log(content.famale)
+            console.log(content.male)
 
                 myChart.setOption({
                 series: [{

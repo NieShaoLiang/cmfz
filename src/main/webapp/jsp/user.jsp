@@ -19,6 +19,7 @@
             handler: function () {
                 $('#dg_user').edatagrid('saveRow');
                 //alert('修改成功')
+                $("#dg_user").edatagrid("reload")
 
             }
         }, '-', {
@@ -27,6 +28,7 @@
             handler: function () {
                 //alert('帮助按钮')
                 $('#dg_user').edatagrid('destroyRow');
+                $("#dg_user").edatagrid("reload")
 
             }
         }, '-', {
@@ -34,6 +36,7 @@
             text: '保存',
             handler: function () {
                 $('#dg_user').edatagrid('saveRow');
+                $("#dg_user").edatagrid("reload")
 
             }
         }];
@@ -97,9 +100,11 @@
             },
             success: function (data) {
                 alert(data)
+                $("#ff").form("clear")
                 $('#dd_user').dialog({
                     closed:true
                 });
+                $("#dg_user").edatagrid("reload")
             }
         });
 

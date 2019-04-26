@@ -15,7 +15,7 @@
             var t = message.content
             // console.log(t)
             var content = JSON.parse(t)
-            //console.log(content)
+            console.log(content)
             var weeks = content.activeNumber.weeks;
             var number = content.activeNumber.number;
 
