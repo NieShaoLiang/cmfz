@@ -45,7 +45,7 @@ public class UserController {
     public Map insert(User user, MultipartFile file) throws IOException {
         String oldName = file.getOriginalFilename();
         String uuid = UUID.randomUUID().toString();
-        String newName = uuid+oldName.substring(oldName.lastIndexOf("."));
+        String newName =uuid+oldName;
         //System.out.println(oldName);
         file.transferTo(new File("E:/服务器/"+newName));
         user.setHeadImg(newName);
@@ -56,19 +56,22 @@ public class UserController {
         try {
             userService.insert(user);
             map.put("isOk",true);
-            Map content = new HashMap();
+            Map content1 = new HashMap();
+            Map content2 = new HashMap();
             //重新查询活跃用户
             Map map1 = userService.selectActiveNumber();
-            content.put("activeNumber",map1);
+            content1.put("activeNumber",map1);
             //查询各个省的注册人数
             List<UserDTO> list0 = userService.selectByProvince0();
             List<UserDTO> list1 = userService.selectByProvince1();
-            content.put("famale",list0);
-            content.put("male",list1);
-            String s = JSON.toJSONString(content);
+            content2.put("famale",list0);
+            content2.put("male",list1);
+            String s1 = JSON.toJSONString(content1);
+            String s2 = JSON.toJSONString(content2);
             //发送信息
             GoEasy goEasy = new GoEasy( "http://rest-hangzhou.goeasy.io","BC-375d0793129e4b7c900d1c6282061a17");
-            goEasy.publish("nsl",s);
+            goEasy.publish("nsl",s1);
+            goEasy.publish("nsl2",s2);
         } catch (Exception e) {
             map.put("isOk",false);
         }

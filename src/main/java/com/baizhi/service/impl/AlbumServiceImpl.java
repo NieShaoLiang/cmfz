@@ -1,13 +1,17 @@
 package com.baizhi.service.impl;
 
+import cn.afterturn.easypoi.excel.ExcelExportUtil;
+import cn.afterturn.easypoi.excel.entity.ExportParams;
 import com.baizhi.dao.AlbumDao;
 import com.baizhi.entity.Album;
+import com.baizhi.entity.Banner;
 import com.baizhi.entity.Chapter;
 import com.baizhi.service.AlbumService;
 import it.sauronsoftware.jave.Encoder;
 import it.sauronsoftware.jave.EncoderException;
 import it.sauronsoftware.jave.MultimediaInfo;
 import org.apache.ibatis.session.RowBounds;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -64,6 +68,16 @@ public class AlbumServiceImpl implements AlbumService {
         return album;
     }
 
+    @Override
+    public Workbook downloadExcel() {
+        List<Album> albums = albumDao.queryAll();
+        for (Album album : albums) {
+            album.setImgPath("e://服务器//"+album.getImgPath());
+        }
+        Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams("专辑展示","专辑"),
+                Album.class, albums);
+        return workbook;
+    }
 
 
 }

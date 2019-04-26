@@ -1,6 +1,8 @@
 package com.baizhi.service;
 
 import com.baizhi.entity.Album;
+import org.apache.poi.ss.usermodel.Workbook;
+
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +19,8 @@ public interface AlbumService {
     void update(Album album);
 
     Album selectOne(Integer id);
+
+    Workbook downloadExcel();
 
 
 

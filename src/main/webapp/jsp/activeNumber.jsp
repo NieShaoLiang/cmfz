@@ -13,13 +13,15 @@
         channel: "nsl",
         onMessage: function (message) {
             var t = message.content
-            // console.log(t)
+
             var content = JSON.parse(t)
             console.log(content)
             var weeks = content.activeNumber.weeks;
             var number = content.activeNumber.number;
-
-
+            console.log("=============================================================")
+            console.log(weeks)
+            console.log(number)
+            console.log("=============================================================")
             myChart.setOption({
                 xAxis: {
                     data: weeks

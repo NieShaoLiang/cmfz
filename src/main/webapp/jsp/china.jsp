@@ -1,6 +1,6 @@
 <%@page contentType="text/html; utf-8" isELIgnored="false" pageEncoding="UTF-8" language="java" %>
-<script type="text/javascript" src="../js/echarts.min.js"></script>
-<script type="text/javascript" src="../js/china.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/echarts.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/china.js"></script>
 <script src="http://cdn-hangzhou.goeasy.io/goeasy.js"></script>
 <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
 <div id="statistics_china" style="width: 100%;height: 100%;margin-top: 30px;margin-left: 30px">
@@ -16,15 +16,19 @@
         appkey: "BC-375d0793129e4b7c900d1c6282061a17"
     });
     goEasy.subscribe({
-        channel: "nsl",
+        channel: "nsl2",
         onMessage: function (message) {
             //console.log(message.content)
             var t = message.content
-            //alert(t)
+            //console.log(t)
+            console.log("=========================================================")
             var content = JSON.parse(t);
+            console.log("女")
             console.log(content.famale)
+            console.log("男")
             console.log(content.male)
-
+            console.log("=========================================================")
+            var content = JSON.parse(t);
                 myChart.setOption({
                 series: [{
                     // 根据名字对应到相应的系列
@@ -40,6 +44,9 @@
                 }]
             });
 
+        },
+        onSuccess: function () {
+            alert("订阅成功")
         }
     })
 

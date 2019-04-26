@@ -2,13 +2,17 @@ package com.baizhi.controller;
 
 import com.baizhi.entity.Album;
 import com.baizhi.service.AlbumService;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.*;
 
 @RestController
@@ -95,4 +99,29 @@ public class AlbumController {
         }
         return map;
     }
+
+    @RequestMapping("downloadExcel")
+    public void downloadExcel(HttpServletResponse response){
+        Workbook workbook = albumService.downloadExcel();
+        //设置响应的编码
+        String encode =null;
+        try {
+            encode= URLEncoder.encode("专辑.xls", "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        //设置响应头
+        response.setHeader("Content-Disposition","attachment;fileName="+encode);
+        //设置响应类型
+        response.setContentType("application/vnd.ms-excel; charset=utf-8");
+        //OutputStream outputStream = response.getOutputStream();
+        try {
+            workbook.write(response.getOutputStream());
+            workbook.close();
+        } catch (IOException e) {
+// TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
 }

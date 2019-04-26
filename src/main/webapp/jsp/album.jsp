@@ -37,6 +37,7 @@
             text: '添加专辑',
             handler: function () {
                 $('#add_album').dialog('open');
+                $("#tt_album").treegrid("reload")
             }
         }, '-', {
             iconCls: 'icon-add',
@@ -62,6 +63,12 @@
                 } else {
                     location.href="${pageContext.request.contextPath}/chapter/download?path="+chapter.path+"&title="+chapter.title;
                 }
+            }
+        },'-', {
+            iconCls: 'icon-save',
+            text: '下载表格',
+            handler: function () {
+                location.href = "${pageContext.request.contextPath}/album/downloadExcel"
             }
         }];
 /*查看所有专辑  start-----*/

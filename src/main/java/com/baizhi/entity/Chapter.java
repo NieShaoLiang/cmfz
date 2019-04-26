@@ -1,5 +1,6 @@
 package com.baizhi.entity;
 
+import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,11 +16,11 @@ import java.util.Date;
 public class Chapter {
     @Id
     private String id;
-
+    @Excel(name = "章节名称")
     private String title;
     private String size;
+    @Excel(name = "章节时长")
     private String duration;
-
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date publishDate;
